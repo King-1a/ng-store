@@ -1,11 +1,14 @@
-// NG Store — . Autor: Angel MTA
+// NG Store — ANGEL MTA
 const state = { products: [], filtered: [] };
+
+// Cambia este webhook por el tuyo
+const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1413379395254747267/tTw5jyq0GXzwbwO5r_J8GmxtUyzMhY0-bbu0rmpFxDQTKe1VT5fFyyvNAnCcrzPHxiSR";
 
 const money = (n) => new Intl.NumberFormat('es-DO',{style:'currency', currency:'USD'}).format(n);
 
 async function loadProducts(){
   try {
-    const res = await fetch('/data/products.json'); // ← Ajustado para ruta correcta
+    const res = await fetch('/data/products.json');
     const data = await res.json();
     state.products = data;
     applySort('pop');
@@ -60,35 +63,74 @@ function handleActions(e){
   if(!id) return;
   const p = state.products.find(x=>x.id===id);
   if(!p) return;
+
   if(e.target.dataset.buy){
-    // Abrir PayPal con monto
-    const amount = p.price.toFixed(2);
-    const who = 'FLAKOMta338';
-    const url = `https://www.paypal.me/${who}/${amount}`;
-    window.open(url, '_blank');
+    openTicket(p);
   }else{
     openModal(p);
   }
 }
 
+// Modal producto
 function openModal(p){
   const dlg = document.getElementById('productModal');
   document.getElementById('mImg').src = p.image;
   document.getElementById('mTitle').textContent = p.title;
   document.getElementById('mDesc').textContent = p.description;
-  document.getElementById('mVersion').textContent = p.version ? 'v' + p.version : '';
+  document.getElementById('mVersion').textContent = p.version ? 'v'+p.version : '';
   document.getElementById('mUpdated').textContent = p.updated ? new Date(p.updated).toLocaleDateString() : '';
   document.getElementById('mPrice').textContent = money(p.price);
 
   const buy = document.getElementById('buyBtn');
-  buy.onclick = ()=>{
-    // Abrir ZIP directamente desde downloads
-    window.open(p.file, '_blank');
+  buy.onclick = () => window.open(p.file, '_blank');
+
+  dlg.showModal();
+}
+
+// Modal ticket
+function openTicket(p){
+  const dlg = document.getElementById('ticketModal');
+  const playerInput = document.getElementById('playerName');
+  const tProduct = document.getElementById('tProduct');
+  const tDate = document.getElementById('tDate');
+  
+  playerInput.value = ''; // limpiar cada vez
+  tProduct.textContent = p.title;
+  tDate.textContent = new Date().toLocaleString();
+
+  const finishBtn = document.getElementById('finishPayBtn');
+  finishBtn.onclick = () => {
+    const playerName = playerInput.value || 'Anonimo';
+    // Abrir PayPal
+    const amount = p.price.toFixed(2);
+    const who = 'FLAKOMta338';
+    window.open(`https://www.paypal.me/${who}/${amount}`, '_blank');
+
+    // Enviar info a Discord
+    sendDiscordWebhook({playerName, product: p.title, price: amount, date: new Date().toLocaleString()});
+
+    dlg.close();
   };
 
   dlg.showModal();
 }
 
+// Enviar info a Discord
+async function sendDiscordWebhook(data){
+  try {
+    await fetch(DISCORD_WEBHOOK, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        content: `**Nueva compra en NG Store**\nJugador: ${data.playerName}\nProducto: ${data.product}\nPrecio: $${data.price}\nFecha/Hora: ${data.date}`
+      })
+    });
+  } catch(err){
+    console.error("Error enviando webhook:", err);
+  }
+}
+
+// UI general
 function setupUI(){
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -99,8 +141,10 @@ function setupUI(){
 
   document.addEventListener('click', handleActions);
 
-  const dlg = document.getElementById('productModal');
-  dlg.querySelector('.close').addEventListener('click', ()=> dlg.close());
+  // Cerrar modales
+  document.querySelectorAll('dialog .close').forEach(btn=>{
+    btn.addEventListener('click', e => e.target.closest('dialog').close());
+  });
 
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
