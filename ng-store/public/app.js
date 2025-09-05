@@ -158,3 +158,31 @@ function setupUI(){
 // Inicializar
 loadProducts();
 setupUI();
+
+
+buy.onclick = async () => {
+  const nombreUsuario = prompt("Ingresa tu nombre o nickname:");
+  if (!nombreUsuario) return alert("Debes ingresar tu nombre");
+
+  // Mostrar info antes de pagar
+  const confirmar = confirm(`Usuario: ${nombreUsuario}\nProducto: ${p.title}\nPrecio: $${p.price}\n\nPresiona Aceptar para ir a PayPal`);
+  if (!confirmar) return;
+
+  // Enviar info al backend para Discord
+  try {
+    await fetch('/api/compra', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre: nombreUsuario, producto: p.title, precio: p.price })
+    });
+    console.log("Compra registrada en Discord");
+  } catch (err) {
+    console.error("Error enviando info a Discord", err);
+  }
+
+  // Abrir PayPal
+  const amount = p.price.toFixed(2);
+  const who = 'FLAKOMta338';
+  const url = `https://www.paypal.me/${who}/${amount}`;
+  window.open(url, '_blank');
+};
