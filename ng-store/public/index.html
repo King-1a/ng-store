@@ -15,20 +15,19 @@
 </head>
 <body>
   <header class="container">
-  <nav class="nav">
-    <a class="brand" href="./">
-      <img src="assets/logo.svg" alt="NG Store" height="32" />
-      <span>NG STORE</span>
-    </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">&#9776;</button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="./">Inicio</a></li>
-      <li><a href="#productos">Productos</a></li>
-      <li><a href="docs.html">Documentación</a></li>
-      <li><a href="contacto.html">Soporte</a></li>
-    </ul>
-  </nav>
-</header>
+    <nav class="nav">
+      <a class="brand" href="./">
+        <img src="assets/logo.svg" alt="NG Store" height="32" />
+        <span>NG STORE</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="./">Inicio</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="docs.html">Documentación</a></li>
+        <li><a href="contacto.html">Soporte</a></li>
+      </ul>
+    </nav>
     <section class="hero">
       <div class="hero-text">
         <h1>Scripts MTA listos para producir</h1>
@@ -130,5 +129,25 @@
       </div>
     </div>
   </dialog>
+
+  <!-- Modal de compra -->
+  <dialog id="buyModal">
+    <form method="dialog">
+      <button class="close" aria-label="Cerrar">×</button>
+    </form>
+    <div class="modal-body">
+      <h3>Completa tus datos para la compra</h3>
+      <p>Producto: <strong id="bTitle"></strong></p>
+      <p>Precio: <strong id="bPrice"></strong></p>
+      <label for="bName">Nombre:</label>
+      <input type="text" id="bName" placeholder="Tu nombre completo" />
+      <label for="bEmail">Correo electrónico:</label>
+      <input type="email" id="bEmail" placeholder="tu@correo.com" />
+      <div style="margin-top:10px;">
+        <button id="finishBtn" class="btn primary">Terminar Pago</button>
+      </div>
+    </div>
+  </dialog>
 </body>
 </html>
+
