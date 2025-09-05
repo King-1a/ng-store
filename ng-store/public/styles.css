@@ -85,3 +85,23 @@ input,textarea{background:#130025;border:1px solid #2e0f50;color:#eee;padding:10
   .nav-toggle{display:block}
   .grid{grid-template-columns:1fr}
 }
+
+/* ✨ Animación suave para NG STORE */
+@keyframes fadeBlink {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #cbbafc;
+}
+
+.brand span {
+  animation: fadeBlink 4s ease-in-out infinite;
+}
