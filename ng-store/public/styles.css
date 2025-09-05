@@ -1,0 +1,87 @@
+/* NG Store — Hoja de estilos. Autor: Angel MTA */
+:root{
+  --bg:#0b0013;
+  --card:#140024;
+  --soft:#1e0435;
+  --text:#eae1ff;
+  --muted:#c8b6ff;
+  --brand:#7b2cff; /* morado principal */
+  --brand-2:#a06bff;
+  --ok:#24d37b;
+  --warn:#ffb224;
+  --err:#ff5a7a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Poppins,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(1200px 600px at 10% -10%,#1c0036 0%,#0b0013 50%,#07000f 100%);color:var(--text)}
+.container{max-width:1100px;margin:0 auto;padding:0 16px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.brand, .brand-inline{display:flex;gap:10px;align-items:center;font-weight:700;color:var(--text);text-decoration:none}
+.nav-links{list-style:none;display:flex;gap:18px;margin:0;padding:0}
+.nav-links a{color:var(--muted);text-decoration:none}
+.nav-links a:hover{color:#fff}
+.nav-toggle{display:none;background:none;border:0;color:#fff;font-size:26px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;padding:24px 0 40px}
+.hero-text h1{font-size:40px;line-height:1.1;margin:0 0 10px}
+.hero-text p{color:var(--muted);margin:0 0 18px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.badges{display:flex;gap:10px;margin-top:10px;color:var(--muted);font-size:14px}
+.hero-art img{width:100%;border-radius:18px;box-shadow:0 10px 40px rgba(123,44,255,.2)}
+
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--soft);color:#fff;border:1px solid #2d0d4f;border-radius:12px;padding:10px 14px;text-decoration:none;cursor:pointer}
+.btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));border-color:#6230c9}
+.btn.ghost{background:transparent;border-color:#3a145f}
+.btn.small{padding:8px 12px;font-size:14px;border-radius:10px}
+
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+.card{background:linear-gradient(180deg,var(--card),#0f0020);border:1px solid #2b0f4a;border-radius:18px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.card h3{margin:0 0 8px}
+.card p{margin:0;color:var(--muted)}
+
+.shop-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+.tools{display:flex;gap:10px}
+.tools input,.tools select{background:#130025;border:1px solid #2e0f50;color:#eee;padding:10px 12px;border-radius:12px;outline:none}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:14px 0 24px}
+.product{background:linear-gradient(180deg,var(--card),#0f0020);border:1px solid #2b0f4a;border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.product img{width:100%;height:160px;object-fit:cover}
+.product .p-body{padding:12px;display:flex;flex-direction:column;gap:8px}
+.price{display:flex;align-items:center;justify-content:space-between}
+.price strong{font-size:18px}
+.tag{font-size:12px;color:#cdbbff;background:#1a0733;border:1px solid #2d0e51;padding:4px 8px;border-radius:999px}
+
+.testimonials{margin:8px 0 60px}
+.testimonials h2{margin:10px 0 6px}
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+blockquote{margin:0;background:#150126;border:1px solid #2d0f50;border-radius:14px;padding:14px;color:#d6c7ff}
+blockquote span{display:block;margin-top:6px;color:#b6a4e8;font-size:14px}
+
+.footer{background:#090012;border-top:1px solid #2b0f4a;padding:24px 0;margin-top:30px}
+.footer-grid{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:12px;align-items:center}
+.footer-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.footer-grid a{color:var(--muted);text-decoration:none}
+.footer-grid a:hover{color:#fff}
+
+dialog{border:0;border-radius:16px;padding:0;width:min(900px,95vw);background:#120024;color:#eee;box-shadow:0 15px 50px rgba(0,0,0,.5)}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+dialog .modal-body{display:grid;grid-template-columns:1fr 1.2fr;gap:16px;padding:14px}
+dialog img{width:100%;height:320px;object-fit:cover;border-radius:14px}
+dialog .close{position:absolute;right:8px;top:8px;background:#21063f;color:#fff;border:1px solid #341260;border-radius:10px;padding:6px 12px;cursor:pointer}
+.meta{display:flex;gap:12px;color:#b6a4e8;font-size:14px}
+.buy{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+
+.doc,.contact{margin:18px 0 40px}
+.form{display:grid;gap:12px}
+.row{display:grid;gap:6px}
+input,textarea{background:#130025;border:1px solid #2e0f50;color:#eee;padding:10px 12px;border-radius:12px;outline:none}
+.status{color:var(--muted);min-height:20px}
+
+@media (max-width: 920px){
+  .hero{grid-template-columns:1fr}
+  .features{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr 1fr}
+  dialog .modal-body{grid-template-columns:1fr}
+}
+@media (max-width: 600px){
+  .nav-links{display:none}
+  .nav-toggle{display:block}
+  .grid{grid-template-columns:1fr}
+}

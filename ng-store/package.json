@@ -1,0 +1,15 @@
+{
+  "name": "ng-store-server",
+  "version": "1.0.0",
+  "description": "NG Store \u2025 Tienda para scripts MTA (PayPal + Discord webhook)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.7",
+    "sqlite3": "^5.1.6",
+    "sqlite": "^4.1.2"
+  }
+}

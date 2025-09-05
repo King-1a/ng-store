@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NG Store — Scripts MTA</title>
+  <meta name="description" content="NG Store: tienda de scripts MTA con estilo profesional. Compra segura por PayPal, soporte por Discord y documentación clara." />
+  <meta name="author" content="Angel MTA" />
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="container">
+    <nav class="nav">
+      <a class="brand" href="./"><img src="assets/logo.svg" alt="NG Store" height="32" /> NG Store</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="./">Inicio</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="docs.html">Documentación</a></li>
+        <li><a href="contacto.html">Soporte</a></li>
+      </ul>
+    </nav>
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Scripts MTA listos para producir</h1>
+        <p>Calidad, rendimiento y soporte. Diseñado con estilo morado y pensado para tu servidor.</p>
+        <div class="cta">
+          <a class="btn primary" href="#productos">Ver productos</a>
+          <a class="btn ghost" href="https://paypal.me/FLAKOMta338" target="_blank" rel="noopener">Comprar por PayPal</a>
+        </div>
+        <div class="badges">
+          <span>Pago seguro</span>
+          <span>Entrega inmediata</span>
+          <span>Hecho por Angel MTA</span>
+        </div>
+      </div>
+      <div class="hero-art">
+        <img src="assets/hero.png" alt="NG Store mockup" />
+      </div>
+    </section>
+  </header>
+
+  <main class="container">
+    <section class="features">
+      <article class="card">
+        <h3>Optimizado</h3>
+        <p>Scripts con buenas prácticas de rendimiento para todo tipo de equipos.</p>
+      </article>
+      <article class="card">
+        <h3>Documentado</h3>
+        <p>Guías claras para instalar, configurar y actualizar fácilmente.</p>
+      </article>
+      <article class="card">
+        <h3>Soporte directo</h3>
+        <p>Atención vía Discord usando <strong>webhook</strong> o servidor.</p>
+      </article>
+    </section>
+
+    <section class="shop" id="productos">
+      <div class="shop-head">
+        <h2>Productos</h2>
+        <div class="tools">
+          <input id="q" type="search" placeholder="Buscar scripts..." />
+          <select id="sort">
+            <option value="pop">Más populares</option>
+            <option value="price-asc">Precio: menor a mayor</option>
+            <option value="price-desc">Precio: mayor a menor</option>
+            <option value="new">Más nuevos</option>
+          </select>
+        </div>
+      </div>
+      <div id="grid" class="grid"></div>
+    </section>
+
+    <section class="testimonials">
+      <h2>Opiniones</h2>
+      <div class="quotes">
+        <blockquote>“Excelente calidad y soporte rápido.” <span>— Cliente RP</span></blockquote>
+        <blockquote>“Instalación sencilla y todo funcionó a la primera.” <span>— Admin MTA</span></blockquote>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand-inline"><img src="assets/logo.svg" alt="NG Store" height="24" /> NG Store</div>
+        <p>© <span id="year"></span> NG Store. Todos los derechos reservados. Hecho por <strong>Angel MTA</strong>.</p>
+      </div>
+      <ul>
+        <li><a href="./">Inicio</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="docs.html">Documentación</a></li>
+        <li><a href="contacto.html">Soporte</a></li>
+      </ul>
+      <div>
+        <a class="btn small" href="https://paypal.me/FLAKOMta338" target="_blank" rel="noopener">PayPal</a>
+        <a class="btn small ghost" href="contacto.html">Discord/Contacto</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal de producto -->
+  <dialog id="productModal">
+    <form method="dialog">
+      <button class="close" aria-label="Cerrar">×</button>
+    </form>
+    <div class="modal-body">
+      <img id="mImg" src="" alt="" />
+      <div>
+        <h3 id="mTitle"></h3>
+        <p id="mDesc"></p>
+        <div class="meta">
+          <span id="mVersion"></span>
+          <span id="mUpdated"></span>
+        </div>
+        <div class="buy">
+          <strong id="mPrice"></strong>
+          <button id="buyBtn" class="btn primary">Comprar ahora</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+</body>
+</html>
