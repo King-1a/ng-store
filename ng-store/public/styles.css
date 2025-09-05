@@ -86,7 +86,23 @@ input,textarea{background:#130025;border:1px solid #2e0f50;color:#eee;padding:10
   .grid{grid-template-columns:1fr}
 }
 
-/* ✨ Animación suave para NG STORE */
+/* ✨ Fondo morado animado */
+body {
+  background: linear-gradient(-45deg, #2b0040, #4b0082, #6a0dad, #8a2be2);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ✨ Animación NG STORE */
 @keyframes fadeBlink {
   0% { opacity: 0; }
   50% { opacity: 1; }
@@ -99,9 +115,52 @@ input,textarea{background:#130025;border:1px solid #2e0f50;color:#eee;padding:10
   gap: 6px;
   font-weight: 700;
   font-size: 1.2rem;
-  color: #cbbafc;
+  color: #fff;
+  text-decoration: none;
 }
 
 .brand span {
   animation: fadeBlink 4s ease-in-out infinite;
 }
+
+/* ✨ Navegación */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+}
+
+/* ✨ NG STORE ANGEL MTA */
+.nav-links li a {
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-links li a:hover {
+  background: #8a2be2;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #cbbafc;
+}
+
+/* ✨ Botón toggle */
+.nav-toggle {
+  background: #6a0dad;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-toggle:hover {
+  background: #8a2be2;
+  transform: rotate(90deg);
+}
+
