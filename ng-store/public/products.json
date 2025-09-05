@@ -2,7 +2,12 @@
   {
     "id": "login-pro",
     "title": "Login PRO 2025",
+    "short": "Panel de login moderno",
+    "category": "Paneles",
     "price": 9.99,
+    "version": "1.0",
+    "updated": "2025-09-05",
+    "pop": 100,
     "file": "downloads/Panel-Login.zip",
     "description": "Panel de inicio de sesión moderno con base de datos editable, registro, recuperación, validaciones, ver contraseña y UI 2025 (archivo: Panel-Login.zip).",
     "image": "assets/login-pro-2025.jpg"
