@@ -1,12 +1,17 @@
 [
  {
   "id": "login-pro",
-  "name": "Login PRO 2025",
+  "title": "Login PRO 2025",
+  "short": "Panel moderno con base de datos editable y UI 2025",
+  "category": "Panel",
   "price": 9.99,
   "file": "downloads/Panel-Login.zip",
-  "description": "Panel de inicio de sesión moderno con base de datos editable, registro, recuperación, validaciones, ver contraseña y UI 2025 (archivo: Panel-Login.zip).",
-  "image": "/assets/login-pro-2025.jpg"
-},
+  "description": "Panel de inicio de sesión moderno con base de datos editable, registro, recuperación, validaciones, ver contraseña y UI 2025.",
+  "image": "/assets/login-pro-2025.jpg",
+  "version": "1.0",
+  "updated": "2025-09-05",
+  "pop": 10
+}
 {
     "id": "grupo-gang",
     "title": "Sistema de Gang / Grupos",
