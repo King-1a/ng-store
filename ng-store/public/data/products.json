@@ -1,34 +1,10 @@
 [
- {
-  "id": "login-pro",
-  "name": "Login PRO 2025",
-  "price": 9.99,
-  "file": "Panel-Login.zip",
-  "description": "Panel de inicio de sesión moderno con base de datos editable, registro, recuperación, validaciones, ver contraseña y UI 2025 (archivo: Panel-Login.zip).",
-  "image": "/assets/login-pro-2025.jpg"
-},
-{
-    "id": "grupo-gang",
-    "title": "Sistema de Gang / Grupos",
-    "short": "Invitaciones, ACL, panel de líderes, roles.",
-    "description": "Sistema completo de bandas con invitaciones, menú de aceptación/rechazo, asignación de ACL y panel GUI para líderes (miembros, roles, permisos).",
-    "category": "Roleplay",
-    "price": 12.0,
-    "version": "1.2.0",
-    "updated": "2025-08-15",
-    "pop": 88,
-    "image": "assets/gang.jpg"
-  },
   {
-    "id": "zombie-event",
-    "title": "Evento Zombis Automático",
-    "short": "Oleadas cada 3 horas con notificación.",
-    "description": "Evento de zombis que se activa cada 3 horas, 30s de aviso, dura 3 minutos y se desactiva solo. Configurable.",
-    "category": "Evento",
-    "price": 6.5,
-    "version": "1.0.0",
-    "updated": "2025-08-10",
-    "pop": 80,
-    "image": "assets/zombies.jpg"
-  }
-]
+    "id": "login-pro",
+    "title": "Login PRO 2025",
+    "price": 9.99,
+    "file": "downloads/Panel-Login.zip",
+    "description": "Panel de inicio de sesión moderno con base de datos editable, registro, recuperación, validaciones, ver contraseña y UI 2025.",
+    "image": "assets/login-pro-2025.jpg"
+  },
+  
