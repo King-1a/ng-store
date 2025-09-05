@@ -86,20 +86,19 @@ input,textarea{background:#130025;border:1px solid #2e0f50;color:#eee;padding:10
   .grid{grid-template-columns:1fr}
 }
 
-/* ✨ Fondo morado animado */
+/* ✨ Fondo morado sólido con animación de brillo */
 body {
-  background: linear-gradient(-45deg, #2b0040, #4b0082, #6a0dad, #8a2be2);
-  background-size: 400% 400%;
-  animation: gradientMove 15s ease infinite;
+  background: #2b0040; /* tu morado original */
+  animation: softPulse 6s ease-in-out infinite;
   margin: 0;
   font-family: Arial, sans-serif;
   color: #fff;
 }
 
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes softPulse {
+  0% { background-color: #2b0040; }
+  50% { background-color: #3a0060; }
+  100% { background-color: #2b0040; }
 }
 
 /* ✨ Animación NG STORE */
@@ -134,7 +133,7 @@ body {
   border-radius: 12px;
 }
 
-/* ✨ NG STORE ANGEL MTA */
+/* ✨ Botones de menú */
 .nav-links li a {
   color: #fff;
   padding: 8px 14px;
@@ -163,4 +162,3 @@ body {
   background: #8a2be2;
   transform: rotate(90deg);
 }
-
