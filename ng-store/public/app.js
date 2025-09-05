@@ -1,14 +1,11 @@
-// NG Store — ANGEL MTA
+// NG Store — Autor: Angel MTA
 const state = { products: [], filtered: [] };
-
-// Cambia este webhook por el tuyo
-const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1413379395254747267/tTw5jyq0GXzwbwO5r_J8GmxtUyzMhY0-bbu0rmpFxDQTKe1VT5fFyyvNAnCcrzPHxiSR";
 
 const money = (n) => new Intl.NumberFormat('es-DO',{style:'currency', currency:'USD'}).format(n);
 
 async function loadProducts(){
   try {
-    const res = await fetch('/data/products.json');
+    const res = await fetch('/data/products.json'); // Ajusta ruta según tu estructura
     const data = await res.json();
     state.products = data;
     applySort('pop');
@@ -65,49 +62,57 @@ function handleActions(e){
   if(!p) return;
 
   if(e.target.dataset.buy){
-    openTicket(p);
-  }else{
+    openBuyModal(p);
+  } else {
     openModal(p);
   }
 }
 
-// Modal producto
+// Modal de descripción
 function openModal(p){
   const dlg = document.getElementById('productModal');
   document.getElementById('mImg').src = p.image;
   document.getElementById('mTitle').textContent = p.title;
   document.getElementById('mDesc').textContent = p.description;
-  document.getElementById('mVersion').textContent = p.version ? 'v'+p.version : '';
+  document.getElementById('mVersion').textContent = p.version ? 'v' + p.version : '';
   document.getElementById('mUpdated').textContent = p.updated ? new Date(p.updated).toLocaleDateString() : '';
   document.getElementById('mPrice').textContent = money(p.price);
 
   const buy = document.getElementById('buyBtn');
-  buy.onclick = () => window.open(p.file, '_blank');
+  buy.onclick = ()=> openBuyModal(p); // Abrir modal de compra en vez de descargar
 
   dlg.showModal();
 }
 
-// Modal ticket
-function openTicket(p){
-  const dlg = document.getElementById('ticketModal');
-  const playerInput = document.getElementById('playerName');
-  const tProduct = document.getElementById('tProduct');
-  const tDate = document.getElementById('tDate');
-  
-  playerInput.value = ''; // limpiar cada vez
-  tProduct.textContent = p.title;
-  tDate.textContent = new Date().toLocaleString();
+// Modal de compra de producto
+function openBuyModal(p){
+  const dlg = document.getElementById('buyModal');
+  document.getElementById('bTitle').textContent = p.title;
+  document.getElementById('bPrice').textContent = money(p.price);
 
-  const finishBtn = document.getElementById('finishPayBtn');
-  finishBtn.onclick = () => {
-    const playerName = playerInput.value || 'Anonimo';
+  const finish = document.getElementById('finishBtn');
+  finish.onclick = async () => {
+    const nombre = document.getElementById('bName').value.trim();
+    const email = document.getElementById('bEmail').value.trim();
+    if(!nombre || !email) return alert("Completa todos los datos");
+
+    // Enviar info a Discord
+    try {
+      await fetch('/api/compra', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, producto: p.title, precio: p.price, email, fecha: new Date().toLocaleString() })
+      });
+      console.log("Compra enviada a Discord");
+    } catch(err){
+      console.error("Error enviando a Discord", err);
+    }
+
     // Abrir PayPal
     const amount = p.price.toFixed(2);
     const who = 'FLAKOMta338';
-    window.open(`https://www.paypal.me/${who}/${amount}`, '_blank');
-
-    // Enviar info a Discord
-    sendDiscordWebhook({playerName, product: p.title, price: amount, date: new Date().toLocaleString()});
+    const url = `https://www.paypal.me/${who}/${amount}`;
+    window.open(url, '_blank');
 
     dlg.close();
   };
@@ -115,22 +120,6 @@ function openTicket(p){
   dlg.showModal();
 }
 
-// Enviar info a Discord
-async function sendDiscordWebhook(data){
-  try {
-    await fetch(DISCORD_WEBHOOK, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        content: `**Nueva compra en NG Store**\nJugador: ${data.playerName}\nProducto: ${data.product}\nPrecio: $${data.price}\nFecha/Hora: ${data.date}`
-      })
-    });
-  } catch(err){
-    console.error("Error enviando webhook:", err);
-  }
-}
-
-// UI general
 function setupUI(){
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -141,48 +130,19 @@ function setupUI(){
 
   document.addEventListener('click', handleActions);
 
-  // Cerrar modales
-  document.querySelectorAll('dialog .close').forEach(btn=>{
-    btn.addEventListener('click', e => e.target.closest('dialog').close());
-  });
+  const dlgProduct = document.getElementById('productModal');
+  dlgProduct.querySelector('.close').addEventListener('click', ()=> dlgProduct.close());
+
+  const dlgBuy = document.getElementById('buyModal');
+  dlgBuy.querySelector('.close').addEventListener('click', ()=> dlgBuy.close());
 
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
   if(navToggle){
-    navToggle.addEventListener('click', ()=>{
-      navLinks.style.display = navLinks.style.display==='flex' ? 'none':'flex';
-    });
+    navToggle.addEventListener('click', ()=> navLinks.style.display = navLinks.style.display==='flex' ? 'none':'flex');
   }
 }
 
 // Inicializar
 loadProducts();
 setupUI();
-
-
-buy.onclick = async () => {
-  const nombreUsuario = prompt("Ingresa tu nombre o nickname:");
-  if (!nombreUsuario) return alert("Debes ingresar tu nombre");
-
-  // Mostrar info antes de pagar
-  const confirmar = confirm(`Usuario: ${nombreUsuario}\nProducto: ${p.title}\nPrecio: $${p.price}\n\nPresiona Aceptar para ir a PayPal`);
-  if (!confirmar) return;
-
-  // Enviar info al backend para Discord
-  try {
-    await fetch('/api/compra', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre: nombreUsuario, producto: p.title, precio: p.price })
-    });
-    console.log("Compra registrada en Discord");
-  } catch (err) {
-    console.error("Error enviando info a Discord", err);
-  }
-
-  // Abrir PayPal
-  const amount = p.price.toFixed(2);
-  const who = 'FLAKOMta338';
-  const url = `https://www.paypal.me/${who}/${amount}`;
-  window.open(url, '_blank');
-};
