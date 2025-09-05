@@ -2,40 +2,37 @@
   {
     "id": "login-pro",
     "title": "Login PRO 2025",
-    "short": "Panel moderno con base de datos editable",
-    "category": "Scripts",
+    "short": "Panel de inicio de sesión moderno",
+    "category": "Sistema",
     "price": 9.99,
-    "file": "downloads/Panel-Login.zip",
-    "description": "Panel de inicio de sesión moderno con base de datos editable, registro, recuperación, validaciones, ver contraseña y UI 2025 (archivo: Panel-Login.zip).",
     "version": "1.0.0",
-    "updated": "2025-09-05",
+    "updated": "2025-09-01",
     "pop": 100,
-    "image": "assets/login-pro-2025.jpg"
+    "image": "assets/login-pro-2025.jpg",
+    "file": "downloads/Panel-Login.zip"
   },
   {
     "id": "grupo-gang",
     "title": "Sistema de Gang / Grupos",
-    "short": "Invitaciones, ACL, panel de líderes, roles",
+    "short": "Invitaciones, ACL, panel de líderes",
     "category": "Roleplay",
     "price": 12.0,
-    "file": "downloads/Grupo-Gang.zip",
-    "description": "Sistema completo de bandas con invitaciones, menú de aceptación/rechazo, asignación de ACL y panel GUI para líderes (miembros, roles, permisos).",
     "version": "1.2.0",
     "updated": "2025-08-15",
     "pop": 88,
-    "image": "assets/gang.jpg"
+    "image": "assets/gang.jpg",
+    "file": "downloads/Sistema-Gang.zip"
   },
   {
     "id": "zombie-event",
     "title": "Evento Zombis Automático",
-    "short": "Oleadas cada 3 horas con notificación",
+    "short": "Oleadas cada 3 horas",
     "category": "Evento",
     "price": 6.5,
-    "file": "downloads/Zombie-Event.zip",
-    "description": "Evento de zombis que se activa cada 3 horas, 30s de aviso, dura 3 minutos y se desactiva solo. Configurable.",
     "version": "1.0.0",
     "updated": "2025-08-10",
     "pop": 80,
-    "image": "assets/zombies.jpg"
+    "image": "assets/zombies.jpg",
+    "file": "downloads/Zombie-Event.zip"
   }
 ]
