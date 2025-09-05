@@ -1,14 +1,18 @@
-// NG Store — Lógica de tienda. Autor: Angel MTA
+// NG Store — . Autor: Angel MTA
 const state = { products: [], filtered: [] };
 
 const money = (n) => new Intl.NumberFormat('es-DO',{style:'currency', currency:'USD'}).format(n);
 
 async function loadProducts(){
-  const res = await fetch('products.json');
-  const data = await res.json();
-  state.products = data;
-  applySort('pop');
-  render();
+  try {
+    const res = await fetch('/data/products.json'); // ← Ajustado para ruta correcta
+    const data = await res.json();
+    state.products = data;
+    applySort('pop');
+    render();
+  } catch(err){
+    console.error("Error cargando productos:", err);
+  }
 }
 
 function render(){
@@ -17,23 +21,23 @@ function render(){
   for(const p of state.filtered){
     const el = document.createElement('article');
     el.className = 'product';
-    el.innerHTML = \`
-      <img src="\${p.image}" alt="\${p.title}">
+    el.innerHTML = `
+      <img src="${p.image}" alt="${p.title}">
       <div class="p-body">
         <div style="display:flex;justify-content:space-between;align-items:center">
-          <h3 style="margin:0">\${p.title}</h3>
-          <span class="tag">\${p.category}</span>
+          <h3 style="margin:0">${p.title}</h3>
+          <span class="tag">${p.category}</span>
         </div>
-        <p style="margin:0;color:#cbbafc">\${p.short}</p>
+        <p style="margin:0;color:#cbbafc">${p.short}</p>
         <div class="price">
-          <strong>\${money(p.price)}</strong>
+          <strong>${money(p.price)}</strong>
           <div>
-            <button class="btn small" data-view="\${p.id}">Ver</button>
-            <button class="btn small primary" data-buy="\${p.id}">Comprar</button>
+            <button class="btn small" data-view="${p.id}">Ver</button>
+            <button class="btn small primary" data-buy="${p.id}">Comprar</button>
           </div>
         </div>
       </div>
-    \`;
+    `;
     grid.appendChild(el);
   }
 }
@@ -57,10 +61,10 @@ function handleActions(e){
   const p = state.products.find(x=>x.id===id);
   if(!p) return;
   if(e.target.dataset.buy){
-    // Construye el link de PayPal.me con monto
+    // Abrir PayPal con monto
     const amount = p.price.toFixed(2);
     const who = 'FLAKOMta338';
-    const url = \`https://www.paypal.me/\${who}/\${amount}\`;
+    const url = `https://www.paypal.me/${who}/${amount}`;
     window.open(url, '_blank');
   }else{
     openModal(p);
@@ -72,27 +76,32 @@ function openModal(p){
   document.getElementById('mImg').src = p.image;
   document.getElementById('mTitle').textContent = p.title;
   document.getElementById('mDesc').textContent = p.description;
-  document.getElementById('mVersion').textContent = 'v' + p.version;
-  document.getElementById('mUpdated').textContent = new Date(p.updated).toLocaleDateString();
+  document.getElementById('mVersion').textContent = p.version ? 'v' + p.version : '';
+  document.getElementById('mUpdated').textContent = p.updated ? new Date(p.updated).toLocaleDateString() : '';
   document.getElementById('mPrice').textContent = money(p.price);
+
   const buy = document.getElementById('buyBtn');
   buy.onclick = ()=>{
-    const amount = p.price.toFixed(2);
-    const who = 'FLAKOMta338';
-    const url = \`https://www.paypal.me/\${who}/\${amount}\`;
-    window.open(url, '_blank');
+    // Abrir ZIP directamente desde downloads
+    window.open(p.file, '_blank');
   };
+
   dlg.showModal();
 }
 
 function setupUI(){
   document.getElementById('year').textContent = new Date().getFullYear();
+
   const sort = document.getElementById('sort');
   sort.addEventListener('change', e=>{ applySort(e.target.value); render(); });
+
   document.getElementById('q').addEventListener('input', ()=>{ applySort(sort.value); render(); });
+
   document.addEventListener('click', handleActions);
+
   const dlg = document.getElementById('productModal');
   dlg.querySelector('.close').addEventListener('click', ()=> dlg.close());
+
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
   if(navToggle){
@@ -102,5 +111,6 @@ function setupUI(){
   }
 }
 
-loadProducts().catch(console.error);
+// Inicializar
+loadProducts();
 setupUI();
